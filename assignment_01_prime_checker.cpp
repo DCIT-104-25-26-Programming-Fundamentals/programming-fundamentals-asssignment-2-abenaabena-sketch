@@ -47,13 +47,14 @@ return false;
 }
 return true;
 }
+
 int main() {
   int num;
 cout<< "Enter a number";
   cin >> num;
   if (isPrime(n:num)) [
 cout << num<< " is a prime number." << endl;
-}else {
+} else {
 cout << num << " is NOT a prime number. " << endl;
 } 
 return 0;
