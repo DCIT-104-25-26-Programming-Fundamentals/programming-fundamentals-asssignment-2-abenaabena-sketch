@@ -51,7 +51,7 @@ int main() {
   int num;
 cout<< "Enter a number";
   cin >> num;
-  if (isPrime(num)) [
+  if (isPrime(n:num)) [
 cout << num<< " is a prime number." << endl;
 }else {
 cout << num << " is NOT a prime number. " << endl;
