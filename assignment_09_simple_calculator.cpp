@@ -71,5 +71,102 @@
 #include <iostream>
 #include <iomanip>
 #include <cmath>
+#include <sstream>
 using namespace std;
 
+
+string formatNumber(double value) {
+    ostringstream oss;
+    if (value == (long long)value) {
+        oss << (long long)value;
+    } else {
+        oss << fixed << setprecision(2) << value;
+    }
+    return oss.str();
+}
+
+double add(double a, double b) { return a + b; }
+double subtract(double a, double b) { return a - b; }
+double multiply(double a, double b) { return a * b; }
+
+double divide(double a, double b) {
+    if (b == 0) {
+        throw runtime_error("Cannot divide by zero.");
+    }
+    return a / b;
+}
+
+double modOp(double a, double b) {
+    if (b == 0) {
+        throw runtime_error("Cannot divide by zero.");
+    }
+    return fmod(a, b);
+}
+
+double exponent(double a, double b) {
+    return pow(a, b);
+}
+
+void printMenu() {
+    cout << "============================" << endl;
+    cout << "     SIMPLE CALCULATOR" << endl;
+    cout << "============================" << endl;
+    cout << "1. Addition" << endl;
+    cout << "2. Subtraction" << endl;
+    cout << "3. Multiplication" << endl;
+    cout << "4. Division" << endl;
+    cout << "5. Modulus" << endl;
+    cout << "6. Exponentiation" << endl;
+    cout << "7. Quit" << endl;
+}
+
+int main() {
+    int choice;
+
+    while (true) {
+        printMenu();
+        cout << "Select an operation (1-7): ";
+        cin >> choice;
+
+        if (choice == 7) {
+            cout << "Goodbye!" << endl;
+            break;
+        }
+
+        if (choice < 1 || choice > 6) {
+            cout << "Error: Invalid choice. Please select 1-7." << endl;
+            continue;
+        }
+
+        double a, b;
+        cout << "Enter first number : ";
+        cin >> a;
+        cout << "Enter second number: ";
+        cin >> b;
+
+        string symbol;
+        double result = 0;
+        bool errorOccurred = false;
+
+        try {
+            switch (choice) {
+                case 1: symbol = "+"; result = add(a, b); break;
+                case 2: symbol = "-"; result = subtract(a, b); break;
+                case 3: symbol = "*"; result = multiply(a, b); break;
+                case 4: symbol = "/"; result = divide(a, b); break;
+                case 5: symbol = "%"; result = modOp(a, b); break;
+                case 6: symbol = "^"; result = exponent(a, b); break;
+            }
+        } catch (const runtime_error& e) {
+            cout << "Error: " << e.what() << endl;
+            errorOccurred = true;
+        }
+
+        if (!errorOccurred) {
+            cout << "Result: " << formatNumber(a) << " " << symbol << " " << formatNumber(b)
+                 << " = " << formatNumber(result) << endl;
+        }
+    }
+
+    return 0;
+}
